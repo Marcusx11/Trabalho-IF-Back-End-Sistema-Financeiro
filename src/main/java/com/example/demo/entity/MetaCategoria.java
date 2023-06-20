@@ -5,32 +5,26 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.util.List;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "fatura")
-public class Fatura {
+@Table(name = "meta_categoria")
+public class MetaCategoria {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "valor_total")
-    private Double valorTotal;
+    @Column(name = "limite")
+    private Double limite;
 
-    @Column(name = "parcelas")
-    private Integer parcelas;
-
-    @Column(name = "faturado")
-    private Boolean faturado;
+    @Column(name = "controle")
+    private Boolean controle;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "categoria_id")
     private Categoria categoria;
 
-    @OneToMany(mappedBy = "fatura", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Transacao> transacoes;
 }
