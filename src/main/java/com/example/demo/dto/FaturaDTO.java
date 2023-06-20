@@ -18,6 +18,7 @@ public class FaturaDTO {
     private Double valorTotal;
     private Integer parcelas;
     private Boolean faturado;
+    private CategoriaDTO categoria;
     private List<TransacaoDTO> transacoes;
 
     public FaturaDTO(Fatura fatura) {
@@ -27,9 +28,10 @@ public class FaturaDTO {
         setValorTotal(fatura.getValorTotal());
         setParcelas(fatura.getParcelas());
         setFaturado(fatura.getFaturado());
+        setCategoria(new CategoriaDTO(fatura.getCategoria()));
+        setTransacoes(new ArrayList<>());
 
         if (fatura.getTransacoes() != null) {
-            setTransacoes(new ArrayList<>());
             for (Transacao t : fatura.getTransacoes()) {
                 getTransacoes().add(new TransacaoDTO(t));
             }

@@ -24,6 +24,12 @@ public class FaturaService {
     @Autowired
     private FaturaRepository repository;
 
+    @Autowired
+    private CategoriaService categoriaService;
+
+    @Autowired
+    private TransacaoService transacaoService;
+
     private static final String FATURA = "Fatura";
 
     @Transactional(readOnly = true)
@@ -49,6 +55,10 @@ public class FaturaService {
     @Transactional(rollbackFor = Throwable.class, propagation = Propagation.REQUIRES_NEW)
     public String salvar(FaturaDTO dto) {
         Fatura fatura = new Fatura();
+        fatura.transformer(dto,
+                categoriaService.buscarValidar(dto.getCategoria().getId()),
+                transacaoService.retornarListaEntidade(dto.getTransacoes()));
+
         repository.save(fatura);
 
         return messages.getAndReplace("entidade.salva", FATURA);
@@ -57,6 +67,9 @@ public class FaturaService {
     @Transactional(rollbackFor = Throwable.class, propagation = Propagation.REQUIRES_NEW)
     public String atualizar(FaturaDTO dto) {
         Fatura fatura = buscarValidar(dto.getId());
+        fatura.transformer(dto,
+                categoriaService.buscarValidar(dto.getCategoria().getId()),
+                transacaoService.retornarListaEntidade(dto.getTransacoes()));
 
         repository.save(fatura);
 
