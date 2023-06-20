@@ -2,7 +2,9 @@ package com.example.demo.service;
 
 import com.example.demo.component.Messages;
 import com.example.demo.dto.CategoriaDTO;
+import com.example.demo.dto.FaturaDTO;
 import com.example.demo.entity.Categoria;
+import com.example.demo.entity.Fatura;
 import com.example.demo.repository.CategoriaRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +14,7 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -24,6 +27,9 @@ public class CategoriaService {
     private final CategoriaRepository categoriaRepository;
     private static final String CATEGORIA = "Categoria";
 
+    @Autowired
+    private final MetaCategoriaService metaCategoriaService;
+
     @Transactional(readOnly = true)
     public List<CategoriaDTO> listar() {
         List<Categoria> entidades = categoriaRepository.findAll();
@@ -32,8 +38,8 @@ public class CategoriaService {
 
     @Transactional(readOnly = true)
     public CategoriaDTO retornarPorId(Long id) {
-        Categoria metaCategoria = buscarValidar(id);
-        return new CategoriaDTO(metaCategoria);
+        Categoria categoria = buscarValidar(id);
+        return new CategoriaDTO(categoria);
     }
 
     public Categoria buscarValidar(Long id) {
@@ -45,25 +51,26 @@ public class CategoriaService {
 
     @Transactional(rollbackFor = Throwable.class, propagation = Propagation.REQUIRES_NEW)
     public String salvar(CategoriaDTO dto) {
-        Categoria metaCategoria = new Categoria();
-        categoriaRepository.save(metaCategoria);
+        Categoria categoria = new Categoria();
+        categoria.transformer(dto);
+        categoriaRepository.save(categoria);
 
         return messages.getAndReplace("entidade.salva", CATEGORIA);
     }
 
     @Transactional(rollbackFor = Throwable.class, propagation = Propagation.REQUIRES_NEW)
     public String atualizar(CategoriaDTO dto) {
-        Categoria metaCategoria = buscarValidar(dto.getId());
-
-        categoriaRepository.save(metaCategoria);
+        Categoria categoria = buscarValidar(dto.getId());
+        categoria.transformer(dto);
+        categoriaRepository.save(categoria);
 
         return messages.getAndReplace("entidade.atualizada", CATEGORIA);
     }
 
     @Transactional(rollbackFor = Throwable.class, propagation = Propagation.REQUIRES_NEW)
     public String deletar(Long id) {
-        Categoria metaCategoria = buscarValidar(id);
-        categoriaRepository.delete(metaCategoria);
+        Categoria categoria = buscarValidar(id);
+        categoriaRepository.delete(categoria);
 
         return messages.getAndReplace("entidade.deletada", CATEGORIA);
     }

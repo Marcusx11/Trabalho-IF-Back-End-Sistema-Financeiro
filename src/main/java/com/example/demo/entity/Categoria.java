@@ -1,10 +1,13 @@
 package com.example.demo.entity;
 
+import com.example.demo.dto.CategoriaDTO;
+import com.example.demo.dto.FaturaDTO;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Data
@@ -21,9 +24,8 @@ public class Categoria {
     @Column(name = "nome")
     private String nome;
 
-    @OneToMany(mappedBy = "categoria", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<MetaCategoria> metaCategorias;
-
-    @OneToMany(mappedBy = "categoria", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Fatura> faturas;
+    @Transient
+    public void transformer(CategoriaDTO dto) {
+        setNome(dto.getNome());
+    }
 }

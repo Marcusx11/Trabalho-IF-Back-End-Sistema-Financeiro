@@ -4,6 +4,7 @@ import com.example.demo.component.Messages;
 import com.example.demo.dto.CategoriaDTO;
 import com.example.demo.dto.MetaCategoriaDTO;
 import com.example.demo.entity.MetaCategoria;
+import com.example.demo.repository.CategoriaRepository;
 import com.example.demo.repository.MetaCategoriaRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +25,8 @@ public class MetaCategoriaService {
     private Messages messages;
     private final MetaCategoriaRepository metaCategoriaRepository;
     private static final String METACATEGORIA = "MetaCategoria";
+
+    private final CategoriaRepository categoriaRepository;
 
     @Transactional(readOnly = true)
     public List<MetaCategoriaDTO> listar() {
@@ -47,6 +50,10 @@ public class MetaCategoriaService {
     @Transactional(rollbackFor = Throwable.class, propagation = Propagation.REQUIRES_NEW)
     public String salvar(MetaCategoriaDTO dto) {
         MetaCategoria metaCategoria = new MetaCategoria();
+        metaCategoria.transformer(dto, categoriaRepository
+                .findById(dto.getCategoria().getId())
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,
+                        messages.getAndReplace("entidade.nao.encontrada", METACATEGORIA))));
         metaCategoriaRepository.save(metaCategoria);
 
         return messages.getAndReplace("entidade.salva", METACATEGORIA);
@@ -55,7 +62,10 @@ public class MetaCategoriaService {
     @Transactional(rollbackFor = Throwable.class, propagation = Propagation.REQUIRES_NEW)
     public String atualizar(MetaCategoriaDTO dto) {
         MetaCategoria metaCategoria = buscarValidar(dto.getId());
-
+        metaCategoria.transformer(dto, categoriaRepository
+                .findById(dto.getCategoria().getId())
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,
+                        messages.getAndReplace("entidade.nao.encontrada", METACATEGORIA))));
         metaCategoriaRepository.save(metaCategoria);
 
         return messages.getAndReplace("entidade.atualizada", METACATEGORIA);

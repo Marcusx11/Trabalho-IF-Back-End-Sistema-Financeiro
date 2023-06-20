@@ -1,5 +1,7 @@
 package com.example.demo.entity;
 
+import com.example.demo.dto.CategoriaDTO;
+import com.example.demo.dto.MetaCategoriaDTO;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -26,5 +28,12 @@ public class MetaCategoria {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "categoria_id")
     private Categoria categoria;
+
+    @Transient
+    public void transformer(MetaCategoriaDTO dto, Categoria categoria) {
+        setLimite(dto.getLimite());
+        setControle(dto.getControle());
+        setCategoria(categoria);
+    }
 
 }

@@ -13,6 +13,7 @@ public class MetaCategoriaDTO {
     private Long id;
     private Double limite;
     private Boolean controle;
+    private CategoriaDTO categoria;
 
     public MetaCategoriaDTO(MetaCategoria metaCategoria) {
         if (metaCategoria == null) return;
@@ -20,5 +21,6 @@ public class MetaCategoriaDTO {
         setId(metaCategoria.getId());
         setLimite(metaCategoria.getLimite());
         setControle(metaCategoria.getControle());
+        setCategoria(new CategoriaDTO(metaCategoria.getCategoria()));
     }
 }
