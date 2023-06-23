@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<extrato>
+  <cliente>John Doe</cliente>
+  <conta>123456789</conta>
+  
+  <transacao>
+    <data>2023-06-01</data>
+    <descricao>Depósito</descricao>
+    <valor>+500.00</valor>
+  </transacao>
+  
+  <transacao>
+    <data>2023-06-05</data>
+    <descricao>Pagamento de conta</descricao>
+    <valor>-75.00</valor>
+  </transacao>
+  
+  <transacao>
+    <data>2023-06-10</data>
+    <descricao>Transferência recebida</descricao>
+    <valor>+200.00</valor>
+  </transacao>
+  
+  <transacao>
+    <data>2023-06-15</data>
+    <descricao>Saque</descricao>
+    <valor>-100.00</valor>
+  </transacao>
+  
+  <transacao>
+    <data>2023-06-20</data>
+    <descricao>Pagamento de fatura</descricao>
+    <valor>-150.00</valor>
+  </transacao>
+  
+  <transacao>
+    <data>2023-06-22</data>
+    <descricao>Depósito</descricao>
+    <valor>+100.00</valor>
+  </transacao>
+  
+  <transacao>
+    <data>2023-06-24</data>
+    <descricao>Transferência enviada</descricao>
+    <valor>-50.00</valor>
+  </transacao>
+  
+  <transacao>
+    <data>2023-06-27</data>
+    <descricao>Pagamento de conta</descricao>
+    <valor>-80.00</valor>
+  </transacao>
+  
+  <transacao>
+    <data>2023-06-30</data>
+    <descricao>Saque</descricao>
+    <valor>-75.00</valor>
+  </transacao>
+  
+  <transacao>
+    <data>2023-07-02</data>
+    <descricao>Transferência recebida</descricao>
+    <valor>+150.00</valor>
+  </transacao>
+  
+  <transacao>
+    <data>2023-07-05</data>
+    <descricao>Pagamento de fatura</descricao>
+    <valor>-200.00</valor>
+  </transacao>
+  
+  <saldo>370.00</saldo>
+</extrato>
