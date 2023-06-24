@@ -1,6 +1,7 @@
 package com.example.demo.entity;
 
 import com.example.demo.dto.FaturaDTO;
+import com.example.demo.utility.Utils;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -38,11 +39,10 @@ public class Fatura {
 
     @Transient
     public void transformer(FaturaDTO dto, Categoria categoria, List<Transacao> transacoes) {
-        setValorTotal(dto.getValorTotal());
+        setValorTotal(Utils.retornaValorNegativoSeEhDespesa(dto.getValorTotal(), dto.getEhDespesa()));
         setParcelas(dto.getParcelas());
         setFaturado(dto.getFaturado());
         setCategoria(categoria);
-        setTransacoes(transacoes);
 
         if (getTransacoes() == null) {
             setTransacoes(new ArrayList<>());

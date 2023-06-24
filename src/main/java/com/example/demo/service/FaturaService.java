@@ -57,7 +57,7 @@ public class FaturaService {
         Fatura fatura = new Fatura();
         fatura.transformer(dto,
                 categoriaService.buscarValidar(dto.getCategoria().getId()),
-                transacaoService.retornarListaEntidade(dto.getTransacoes()));
+                transacaoService.passarDadosTransacoes(fatura, dto));
 
         repository.save(fatura);
 
@@ -69,7 +69,7 @@ public class FaturaService {
         Fatura fatura = buscarValidar(dto.getId());
         fatura.transformer(dto,
                 categoriaService.buscarValidar(dto.getCategoria().getId()),
-                transacaoService.retornarListaEntidade(dto.getTransacoes()));
+                transacaoService.passarDadosTransacoes(fatura, dto));
 
         repository.save(fatura);
 

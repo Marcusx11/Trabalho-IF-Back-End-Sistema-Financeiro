@@ -18,6 +18,7 @@ public class FaturaDTO {
     private Double valorTotal;
     private Integer parcelas;
     private Boolean faturado;
+    private Boolean ehDespesa;
     private CategoriaDTO categoria;
     private List<TransacaoDTO> transacoes;
 
@@ -26,6 +27,7 @@ public class FaturaDTO {
 
         setId(fatura.getId());
         setValorTotal(fatura.getValorTotal());
+        setEhDespesa(fatura.getValorTotal() == Math.abs(fatura.getValorTotal()));
         setParcelas(fatura.getParcelas());
         setFaturado(fatura.getFaturado());
         setCategoria(new CategoriaDTO(fatura.getCategoria()));
