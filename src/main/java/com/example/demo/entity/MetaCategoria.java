@@ -1,6 +1,5 @@
 package com.example.demo.entity;
 
-import com.example.demo.dto.CategoriaDTO;
 import com.example.demo.dto.MetaCategoriaDTO;
 import lombok.AllArgsConstructor;
 import lombok.Data;

@@ -12,11 +12,11 @@ import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ImportaExtrato {
+public class Extrato {
     /*
     * Exemplo de utilização:
      	try {
-			ImportaExtrato extrato = new ImportaExtrato("extrato.xml");
+			Extrato extrato = new Extrato("extrato.xml");
 			extrato.importarDados();
 		} catch (Exception e) {
 			throw new RuntimeException(e);
@@ -35,7 +35,7 @@ public class ImportaExtrato {
     private List<String> descricoes = new ArrayList<>();
     private List<String> valores = new ArrayList<>();
 
-    public ImportaExtrato(String arq) throws Exception {
+    public Extrato(String arq) throws Exception {
         if (!arq.endsWith(".xml")) {
             throw new FileNotFoundException("Erro ao tentar importar extrato: o arquivo '" + arq + "' não possui extensão XML...");
         }
