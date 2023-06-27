@@ -304,7 +304,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"nome\": \"Meta da Categoria 1\",\n    \"limite\": 400.0,\n    \"controle\": true,\n    \"categoria\": {\n        \"id\": \"3\"\n    }\n}",
+							"raw": "{\n    \"nome\": \"Meta da Categoria 2\",\n    \"limite\": 400.0,\n    \"controle\": true,\n    \"categoria\": {\n        \"id\": \"2\"\n    }\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -358,6 +358,45 @@
 							"path": [
 								"metacategorias",
 								"buscar-por-id",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "filtrar orcamento",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/metacategorias/filtrar-orcamento",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"metacategorias",
+								"filtrar-orcamento"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "filtrar orcamento por categoria",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/metacategorias/filtrar-orcamento-por-categoria/1",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"metacategorias",
+								"filtrar-orcamento-por-categoria",
 								"1"
 							]
 						}

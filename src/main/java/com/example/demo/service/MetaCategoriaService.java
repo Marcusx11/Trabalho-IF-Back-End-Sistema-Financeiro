@@ -3,6 +3,7 @@ package com.example.demo.service;
 import com.example.demo.component.Messages;
 import com.example.demo.dto.CategoriaDTO;
 import com.example.demo.dto.MetaCategoriaDTO;
+import com.example.demo.entity.Categoria;
 import com.example.demo.entity.MetaCategoria;
 import com.example.demo.repository.CategoriaRepository;
 import com.example.demo.repository.MetaCategoriaRepository;
@@ -15,6 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -77,5 +79,14 @@ public class MetaCategoriaService {
         metaCategoriaRepository.delete(metaCategoria);
 
         return messages.getAndReplace("entidade.deletada", METACATEGORIA);
+    }
+
+    public Double filtrarOrcamento() {
+        return metaCategoriaRepository.findAll().stream().map(MetaCategoria::getLimite).reduce(0.0, Double::sum);
+    }
+
+    public Double filtrarOrcamentoPorCategoria(Long id) {
+        Optional<Categoria> categoria = categoriaRepository.findById(id);
+        return categoria.map(value -> metaCategoriaRepository.findAll().stream().filter(metaCategoria -> metaCategoria.getCategoria() == value).map(MetaCategoria::getLimite).reduce(0.0, Double::sum)).orElse(0.0);
     }
 }

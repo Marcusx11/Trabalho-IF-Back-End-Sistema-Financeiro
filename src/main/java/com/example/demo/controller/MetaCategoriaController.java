@@ -1,6 +1,8 @@
 package com.example.demo.controller;
 
+import com.example.demo.dto.CategoriaDTO;
 import com.example.demo.dto.MetaCategoriaDTO;
+import com.example.demo.entity.Categoria;
 import com.example.demo.service.MetaCategoriaService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,6 +31,20 @@ public class MetaCategoriaController {
     @ResponseStatus(HttpStatus.OK)
     public MetaCategoriaDTO retornarPorId(@PathVariable(name = "id") Long id) {
         return service.retornarPorId(id);
+    }
+
+    @GetMapping("/filtrar-orcamento")
+    @ResponseBody
+    @ResponseStatus(HttpStatus.OK)
+    public Double filtrarOrcamento() {
+        return service.filtrarOrcamento();
+    }
+
+    @GetMapping("/filtrar-orcamento-por-categoria/{categoria_id}")
+    @ResponseBody
+    @ResponseStatus(HttpStatus.OK)
+    public Double filtrarOrcamentoPorCategoria(@PathVariable(name = "categoria_id") Long id) {
+        return service.filtrarOrcamentoPorCategoria(id);
     }
 
     @PostMapping(value = "/salvar", consumes = MediaType.APPLICATION_JSON_VALUE)
