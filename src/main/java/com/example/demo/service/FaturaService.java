@@ -2,7 +2,10 @@ package com.example.demo.service;
 
 import com.example.demo.component.Messages;
 import com.example.demo.dto.FaturaDTO;
+import com.example.demo.dto.MetaCategoriaDTO;
+import com.example.demo.entity.Categoria;
 import com.example.demo.entity.Fatura;
+import com.example.demo.entity.MetaCategoria;
 import com.example.demo.query.FaturaQuery;
 import com.example.demo.repository.FaturaRepository;
 import com.example.demo.utility.enums.EnumFiltroFatura;
@@ -34,6 +37,9 @@ public class FaturaService {
 
     @Autowired
     private TransacaoService transacaoService;
+
+    @Autowired
+    private MetaCategoriaService metaCategoriaService;
 
     private static final String FATURA = "Fatura";
 
@@ -70,6 +76,26 @@ public class FaturaService {
         fatura.transformer(dto,
                 categoriaService.buscarValidar(dto.getCategoria().getId()),
                 transacaoService.passarDadosTransacoes(fatura, dto));
+
+        Categoria categoria = new Categoria();
+        float somaFaturasDeMetaCategoria = 0.0F;
+        for (FaturaDTO faturaDTO : this.listar()) {
+            categoria.setId(faturaDTO.getCategoria().getId());
+            categoria.setNome(faturaDTO.getCategoria().getNome());
+            if (categoria.equals(fatura.getCategoria())) {
+                somaFaturasDeMetaCategoria += faturaDTO.getValorTotal()/faturaDTO.getParcelas();
+            }
+        }
+        for (MetaCategoriaDTO metaCategoriaDTO: metaCategoriaService.listar()) {
+            categoria.setId(metaCategoriaDTO.getCategoria().getId());
+            categoria.setNome(metaCategoriaDTO.getCategoria().getNome());
+            if (categoria.equals(fatura.getCategoria())) {
+                if ((somaFaturasDeMetaCategoria + (dto.getValorTotal()/dto.getParcelas())) > metaCategoriaDTO.getLimite()) {
+                    metaCategoriaDTO.setControle(false); // false indica que o limite foi excedido com a fatura recem inserida
+                    metaCategoriaService.atualizar(metaCategoriaDTO);
+                }
+            }
+        }
 
         repository.save(fatura);
 

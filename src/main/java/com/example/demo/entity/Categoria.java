@@ -9,6 +9,7 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @Data
 @AllArgsConstructor
@@ -27,5 +28,16 @@ public class Categoria {
     @Transient
     public void transformer(CategoriaDTO dto) {
         setNome(dto.getNome());
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Categoria categoria = (Categoria) o;
+
+        if (!Objects.equals(id, categoria.id)) return false;
+        return Objects.equals(nome, categoria.nome);
     }
 }
