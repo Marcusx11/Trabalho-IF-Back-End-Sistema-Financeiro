@@ -35,26 +35,33 @@ public class TransacaoService {
                         messages.getAndReplace("entidade.nao.encontrada", TRANSACAO)));
     }
 
-    public List<Transacao> retornarListaEntidade(List<TransacaoDTO> transacoes) {
-        List<Transacao> entidades = new ArrayList<>();
+    public Transacao retornarTransacaoDataPagamentoMaisRecente(List<Transacao> transacoes) {
+        return transacoes.stream().filter(t -> t.getDataPagamento() == null).findFirst().orElse(null);
+    }
 
-        for (TransacaoDTO dto : transacoes) {
-            entidades.add(buscarValidar(dto.getId()));
+    public String pagarTransacaoMaisRecente(List<Transacao> transacaos) {
+        Transacao transacaoMaisRecente = retornarTransacaoDataPagamentoMaisRecente(transacaos);
+        if (transacaoMaisRecente == null) {
+            return messages.get("fatura.paga");
         }
+        transacaoMaisRecente.setDataPagamento(new Date());
+        repository.save(transacaoMaisRecente);
 
-        return entidades;
+        return messages.get("parcela.paga");
     }
 
     public List<Transacao> passarDadosTransacoes(Fatura fatura, FaturaDTO dto) {
         List<Transacao> entidades = new ArrayList<>();
-        Double valorParcela = dto.getValorTotal() / dto.getParcelas();
+        double valorParcela = dto.getValorTotal() / dto.getParcelas();
         Calendar c = Calendar.getInstance();
         Transacao transacao;
 
         if (dto.getParcelas() == 1) {
             transacao = passarDadosTransacao(fatura, dto, c.getTime(), 1, valorParcela);
+            if (Boolean.TRUE.equals(dto.getFaturado())) {
+                transacao.setDataPagamento(new Date());
+            }
             entidades.add(transacao);
-            // TODO -> Dúdidas sobre setar a data de pagamento mesmo para faturas únicas
         } else {
             for (int parc = 1; parc <= dto.getParcelas(); parc++) {
                 c.add(Calendar.MONTH, 1);

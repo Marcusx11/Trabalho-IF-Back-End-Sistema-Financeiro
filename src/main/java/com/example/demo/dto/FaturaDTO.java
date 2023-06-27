@@ -27,7 +27,7 @@ public class FaturaDTO {
 
         setId(fatura.getId());
         setValorTotal(fatura.getValorTotal());
-        setEhDespesa(fatura.getValorTotal() == Math.abs(fatura.getValorTotal()));
+        setEhDespesa(fatura.getValorTotal() != Math.abs(fatura.getValorTotal()));
         setParcelas(fatura.getParcelas());
         setFaturado(fatura.getFaturado());
         setCategoria(new CategoriaDTO(fatura.getCategoria()));

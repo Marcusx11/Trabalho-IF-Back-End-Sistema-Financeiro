@@ -3,7 +3,9 @@ package com.example.demo.service;
 import com.example.demo.component.Messages;
 import com.example.demo.dto.FaturaDTO;
 import com.example.demo.entity.Fatura;
+import com.example.demo.query.FaturaQuery;
 import com.example.demo.repository.FaturaRepository;
+import com.example.demo.utility.enums.EnumFiltroFatura;
 import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -25,6 +27,9 @@ public class FaturaService {
     private FaturaRepository repository;
 
     @Autowired
+    private FaturaQuery query;
+
+    @Autowired
     private CategoriaService categoriaService;
 
     @Autowired
@@ -35,6 +40,13 @@ public class FaturaService {
     @Transactional(readOnly = true)
     public List<FaturaDTO> listar() {
         List<Fatura> entidades = repository.findAll();
+
+        return entidades.stream().map(FaturaDTO::new).collect(Collectors.toList());
+    }
+
+    @Transactional(readOnly = true)
+    public List<FaturaDTO> filtrarFaturas(EnumFiltroFatura filtro) {
+        List<Fatura> entidades = query.filtrarFaturas(filtro);
 
         return entidades.stream().map(FaturaDTO::new).collect(Collectors.toList());
     }
@@ -74,6 +86,19 @@ public class FaturaService {
         repository.save(fatura);
 
         return messages.getAndReplace("entidade.atualizada", FATURA);
+    }
+
+    @Transactional(rollbackFor = Throwable.class, propagation = Propagation.REQUIRES_NEW)
+    public String pagarParcela(Long id) {
+        Fatura fatura = buscarValidar(id);
+        String mensagemRetorno = transacaoService.pagarTransacaoMaisRecente(fatura.getTransacoes());
+
+        if (transacaoService.retornarTransacaoDataPagamentoMaisRecente(fatura.getTransacoes()) == null) {
+            fatura.setFaturado(Boolean.TRUE);
+            repository.save(fatura);
+        }
+
+        return mensagemRetorno;
     }
 
     @Transactional(rollbackFor = Throwable.class, propagation = Propagation.REQUIRES_NEW)
