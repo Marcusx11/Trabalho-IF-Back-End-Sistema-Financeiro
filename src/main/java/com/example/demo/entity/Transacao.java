@@ -28,11 +28,11 @@ public class Transacao {
     @Column(name = "parcela")
     private Integer parcela;
 
-    @Temporal(TemporalType.TIMESTAMP)
+    @Temporal(TemporalType.DATE)
     @Column(name = "data_pagamento")
     private Date dataPagamento;
 
-    @Temporal(TemporalType.TIMESTAMP)
+    @Temporal(TemporalType.DATE)
     @Column(name = "data_vencimento")
     private Date dataVencimento;
 

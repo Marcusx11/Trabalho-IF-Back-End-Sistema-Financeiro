@@ -45,7 +45,7 @@ public class FaturaService {
     }
 
     @Transactional(readOnly = true)
-    public List<FaturaDTO> filtrarFaturas(EnumFiltroFatura filtro) {
+    public List<FaturaDTO> filtrarFaturas(FaturaDTO filtro) {
         List<Fatura> entidades = query.filtrarFaturas(filtro);
 
         return entidades.stream().map(FaturaDTO::new).collect(Collectors.toList());

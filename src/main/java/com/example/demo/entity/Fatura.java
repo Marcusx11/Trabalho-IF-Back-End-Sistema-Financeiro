@@ -28,7 +28,7 @@ public class Fatura {
     private Integer parcelas;
 
     @Column(name = "faturado")
-    private Boolean faturado;
+    private Boolean faturado; // Foi pago
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "categoria_id")

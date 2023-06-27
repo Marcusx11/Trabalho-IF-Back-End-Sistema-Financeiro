@@ -27,7 +27,7 @@ public class FaturaController {
     @GetMapping("/filtrar")
     @ResponseBody
     @ResponseStatus(HttpStatus.OK)
-    public List<FaturaDTO> filtrarFaturas(EnumFiltroFatura filtro) {
+    public List<FaturaDTO> filtrarFaturas(FaturaDTO filtro) {
         return service.filtrarFaturas(filtro);
     }
 

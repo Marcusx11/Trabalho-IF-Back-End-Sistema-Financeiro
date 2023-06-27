@@ -2,11 +2,14 @@ package com.example.demo.dto;
 
 import com.example.demo.entity.Fatura;
 import com.example.demo.entity.Transacao;
+import com.example.demo.utility.enums.EnumFiltroFatura;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Data
@@ -20,6 +23,13 @@ public class FaturaDTO {
     private Boolean faturado;
     private Boolean ehDespesa;
     private CategoriaDTO categoria;
+    private EnumFiltroFatura filtro;
+
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private Date dataPeriodoInicio;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private Date dataPeriodoFim;
+
     private List<TransacaoDTO> transacoes;
 
     public FaturaDTO(Fatura fatura) {
