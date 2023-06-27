@@ -12,9 +12,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.DateTimeException;
 import java.time.LocalDate;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Optional;
 
 @RequestMapping("/relatorio")
 @RestController
@@ -27,8 +28,7 @@ public class RelatorioController {
 
     private String printTable(int mesInicial, int mesFinal) {
         StringBuilder relatorio = new StringBuilder();
-        List<MetaCategoriaDTO> metasCategoria = serviceMetaCategoria.listar();
-        List<FaturaDTO> faturas = serviceFatura.listar();
+        Optional<TransacaoDTO> transacao;
         for (int i = mesInicial - 1; i < mesFinal; i++) {
             if (i == 0)
                 relatorio.append("Relatório do mês atual:\n");
@@ -38,17 +38,17 @@ public class RelatorioController {
             relatorio.append("-------------------------------------------------------------------------\n");
             relatorio.append(String.format("| %-22s | %8s | %15s | %15s |\n", "Categoria", "Meta", "Valor Total", "Parcela Atual"));
             float orcamento = 0;
-            for (MetaCategoriaDTO dto : metasCategoria) {
+            int parcela = i + 1;
+            for (MetaCategoriaDTO dto : serviceMetaCategoria.listar()) {
                 orcamento += dto.getLimite();
                 relatorio.append(String.format("| %-22s | %8.2f |                 |                 |\n", dto.getCategoria().getNome(), dto.getLimite()));
-                for (FaturaDTO fatura : faturas) {
+                for (FaturaDTO fatura : serviceFatura.listar()) {
                     if (fatura.getCategoria().equals(dto.getCategoria())) {
-                        for (TransacaoDTO transacao : fatura.getTransacoes()) {
-                            if (transacao.getDataPagamento() == null && (LocalDate.now().getMonthValue() + i) < (transacao.getDataVencimento().getMonth() + 1))
-                                relatorio.append(String.format("| |-> %-18s |          | %15.2f | %10.2f (%dx) |\n", fatura.getId(), fatura.getValorTotal(), transacao.getValor(), fatura.getParcelas()));
-                            if (mesInicial == mesFinal)
-                                break;
-                        }
+                        int finalParcela = parcela;
+                        transacao = fatura.getTransacoes().stream().filter(t -> t.getDataPagamento() == null && t.getParcela() == finalParcela).findFirst();
+                        transacao.ifPresentOrElse(
+                                (value) -> relatorio.append(String.format("| |-> %-18s |          | %15.2f | %10.2f (%dx) |\n", fatura.getId(), fatura.getValorTotal(), value.getValor(), fatura.getParcelas())),
+                                () -> relatorio.append(""));
                     }
                 }
             }
@@ -76,9 +76,6 @@ public class RelatorioController {
     @ResponseBody
     @ResponseStatus(HttpStatus.OK)
     public String contasPendentes(@RequestParam("inicial") int mesInicial, @RequestParam("final") int mesFinal) {
-        if (mesInicial > 2)
-            return printTable(mesInicial, mesFinal+1);
-        else
-            return printTable(2, mesFinal+1);
+        return printTable(mesInicial, mesFinal+1);
     }
 }
