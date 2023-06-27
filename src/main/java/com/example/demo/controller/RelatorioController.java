@@ -3,8 +3,6 @@ package com.example.demo.controller;
 import com.example.demo.dto.FaturaDTO;
 import com.example.demo.dto.MetaCategoriaDTO;
 import com.example.demo.dto.TransacaoDTO;
-import com.example.demo.entity.Fatura;
-import com.example.demo.entity.Transacao;
 import com.example.demo.service.FaturaService;
 import com.example.demo.service.MetaCategoriaService;
 import lombok.RequiredArgsConstructor;
@@ -12,9 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDate;
-import java.util.Iterator;
-import java.util.List;
 import java.util.Optional;
 
 @RequestMapping("/relatorio")

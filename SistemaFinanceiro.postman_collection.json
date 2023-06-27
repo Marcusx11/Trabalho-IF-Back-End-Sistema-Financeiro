@@ -477,6 +477,39 @@
 					"response": []
 				}
 			]
+		},
+		{
+			"name": "Importa Dados",
+			"item": [
+				{
+					"name": "importa xml",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "<?xml version=\"1.0\" encoding=\"UTF-8\" ?>\r\n<extrato>\r\n  <cliente>John Doe</cliente>\r\n  <conta>123456789</conta>\r\n  \r\n  <transacao>\r\n    <data>2023-06-01</data>\r\n    <descricao>Depósito</descricao>\r\n    <valor>+500.00</valor>\r\n  </transacao>\r\n  \r\n  <transacao>\r\n    <data>2023-06-05</data>\r\n    <descricao>Pagamento de conta</descricao>\r\n    <valor>-75.00</valor>\r\n  </transacao>\r\n  \r\n  <transacao>\r\n    <data>2023-06-10</data>\r\n    <descricao>Transferência recebida</descricao>\r\n    <valor>+200.00</valor>\r\n  </transacao>\r\n  \r\n  <transacao>\r\n    <data>2023-06-15</data>\r\n    <descricao>Saque</descricao>\r\n    <valor>-100.00</valor>\r\n  </transacao>\r\n  \r\n  <transacao>\r\n    <data>2023-06-20</data>\r\n    <descricao>Pagamento de fatura</descricao>\r\n    <valor>-150.00</valor>\r\n  </transacao>\r\n  \r\n  <transacao>\r\n    <data>2023-06-22</data>\r\n    <descricao>Depósito</descricao>\r\n    <valor>+100.00</valor>\r\n  </transacao>\r\n  \r\n  <transacao>\r\n    <data>2023-06-24</data>\r\n    <descricao>Transferência enviada</descricao>\r\n    <valor>-50.00</valor>\r\n  </transacao>\r\n  \r\n  <transacao>\r\n    <data>2023-06-27</data>\r\n    <descricao>Pagamento de conta</descricao>\r\n    <valor>-80.00</valor>\r\n  </transacao>\r\n  \r\n  <transacao>\r\n    <data>2023-06-30</data>\r\n    <descricao>Saque</descricao>\r\n    <valor>-75.00</valor>\r\n  </transacao>\r\n  \r\n  <transacao>\r\n    <data>2023-07-02</data>\r\n    <descricao>Transferência recebida</descricao>\r\n    <valor>+150.00</valor>\r\n  </transacao>\r\n  \r\n  <transacao>\r\n    <data>2023-07-05</data>\r\n    <descricao>Pagamento de fatura</descricao>\r\n    <valor>-200.00</valor>\r\n  </transacao>\r\n  \r\n  <saldo>370.00</saldo>\r\n</extrato>\r\n",
+							"options": {
+								"raw": {
+									"language": "xml"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/importa-dados/extrato-xml",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"importa-dados",
+								"extrato-xml"
+							]
+						}
+					},
+					"response": []
+				}
+			]
 		}
 	]
 }

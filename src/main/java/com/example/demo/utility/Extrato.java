@@ -7,27 +7,12 @@ import org.w3c.dom.NodeList;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
-import java.io.File;
-import java.io.FileNotFoundException;
+import java.io.*;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 
 public class Extrato {
-    /*
-    * Exemplo de utilização:
-     	try {
-			Extrato extrato = new Extrato("extrato.xml");
-			extrato.importarDados();
-		} catch (Exception e) {
-			throw new RuntimeException(e);
-		}
-    *
-    * Os métodos getData, getDescricoes e getValores armazenam valores das colunas Data, Descricao e Valor do template de extrato escolhido.
-    * Logo, para pegar os valores de uma linha, usa-se o mesmo índice em cada uma das colunas. Assim, para retornar os valores da primeira linha:
-    *   datas.get(0); descricoes.get(0); valores.get(0);
-    * */
-
-    private File arquivo;
     private DocumentBuilderFactory factory;
     private DocumentBuilder builder;
     private Document document;
@@ -36,13 +21,10 @@ public class Extrato {
     private List<String> valores = new ArrayList<>();
 
     public Extrato(String arq) throws Exception {
-        if (!arq.endsWith(".xml")) {
-            throw new FileNotFoundException("Erro ao tentar importar extrato: o arquivo '" + arq + "' não possui extensão XML...");
-        }
-        arquivo = new File(arq);
+        InputStream stream = new ByteArrayInputStream(arq.getBytes(StandardCharsets.UTF_8));
         factory = DocumentBuilderFactory.newInstance();
         builder = factory.newDocumentBuilder();
-        document = builder.parse(arquivo);
+        document = builder.parse(stream);
         document.getDocumentElement().normalize();
     }
 
