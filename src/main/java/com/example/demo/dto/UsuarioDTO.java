@@ -21,4 +21,6 @@ public class UsuarioDTO {
         setLogin(usuario.getLogin());
         setSenha(usuario.getSenha());
     }
+
+
 }

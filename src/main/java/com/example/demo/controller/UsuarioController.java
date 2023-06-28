@@ -16,8 +16,8 @@ public class UsuarioController {
 
     @GetMapping("/login")
     @ResponseStatus(HttpStatus.OK)
-    public String login(UsuarioDTO dto) {
-        return service.loginSistema(dto);
+    public UsuarioDTO login(UsuarioDTO dto) {
+        return service.autenticar(dto);
     }
 
     @PostMapping(value = "/salvar", consumes = MediaType.APPLICATION_JSON_VALUE)

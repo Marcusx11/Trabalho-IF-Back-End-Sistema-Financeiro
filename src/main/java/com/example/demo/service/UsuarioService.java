@@ -63,7 +63,7 @@ public class UsuarioService extends BaseService {
             throw new ResponseStatusException(HttpStatus.CONFLICT,
                     messages.getAndReplace("entidade.existente", USUARIO));
         }
-        
+
         Usuario usuario = new Usuario();
 
         usuario.transformer(dto, gerarSenhaHash(dto.getSenha()));
@@ -73,12 +73,13 @@ public class UsuarioService extends BaseService {
     }
 
     @Transactional(readOnly = true)
-    public String loginSistema(UsuarioDTO dto) {
+    public UsuarioDTO autenticar(UsuarioDTO dto) {
         Optional<Usuario> usuarioBD = repository.findByLogin(dto.getLogin());
         if (usuarioBD.isPresent()) {
-            boolean senhaValida = usuarioBD.get().getSenha().equals(gerarSenhaHash(dto.getSenha()));
+            Usuario usuario = usuarioBD.get();
+            boolean senhaValida = usuario.getSenha().equals(gerarSenhaHash(dto.getSenha()));
             if (Boolean.TRUE.equals(senhaValida)) {
-                return usuarioBD.get().getSenha();
+                return new UsuarioDTO(usuario.getLogin(), usuario.getSenha());
             }
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, messages.get("campo.login.senha.invalido"));
         }
