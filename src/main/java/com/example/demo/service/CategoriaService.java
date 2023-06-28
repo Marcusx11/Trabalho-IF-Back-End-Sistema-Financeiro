@@ -20,10 +20,9 @@ import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
-public class CategoriaService {
+public class CategoriaService extends BaseService {
 
     @Autowired
-    private Messages messages;
     private final CategoriaRepository categoriaRepository;
     private static final String CATEGORIA = "Categoria";
 

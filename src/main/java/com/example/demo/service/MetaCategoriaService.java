@@ -21,10 +21,9 @@ import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
-public class MetaCategoriaService {
+public class MetaCategoriaService extends BaseService {
 
     @Autowired
-    private Messages messages;
     private final MetaCategoriaRepository metaCategoriaRepository;
     private static final String METACATEGORIA = "MetaCategoria";
 

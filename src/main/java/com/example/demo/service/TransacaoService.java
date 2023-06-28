@@ -18,13 +18,10 @@ import java.util.Date;
 import java.util.List;
 
 @Service
-public class TransacaoService {
+public class TransacaoService extends BaseService {
 
     @Autowired
     private TransacaoRepository repository;
-
-    @Autowired
-    private Messages messages;
 
     private static final String TRANSACAO = "Transação";
 

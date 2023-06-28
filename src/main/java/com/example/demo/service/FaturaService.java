@@ -21,10 +21,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
-public class FaturaService {
-
-    @Autowired
-    private Messages messages;
+public class FaturaService extends BaseService {
 
     @Autowired
     private FaturaRepository repository;
