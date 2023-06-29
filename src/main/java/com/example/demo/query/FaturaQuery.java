@@ -12,6 +12,8 @@ import org.springframework.web.server.ResponseStatusException;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -27,12 +29,14 @@ public class FaturaQuery {
     @Autowired
     private Messages messages;
 
+    private static final DateFormat dbDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+
     public List<Fatura> filtrarFaturas(FaturaDTO filtro) {
         switch (filtro.getFiltro()) {
             case FILTRO_PENDENTE:
                 return repository.findAllByFaturadoEquals(Boolean.FALSE);
             case FILTRO_DATAS_PAGAMENTOS_PENDENTES:
-                return repository.encontrarFaturasPendentes(filtro.getDataPeriodoInicio(), filtro.getDataPeriodoFim());
+                return encontrarFaturasPendentes(filtro.getDataPeriodoInicio(), filtro.getDataPeriodoFim());
             case FILTRO_PAGAMENTOS_EFETUADOS:
                 return repository.encontrarPagamentosEfetuados();
             default:
@@ -41,17 +45,27 @@ public class FaturaQuery {
     }
 
     private List<Fatura> encontrarFaturasPendentes(Date dataPeriodoInicio, Date dataPeriodoFim) {
-        String sql = " SELECT f FROM Fatura f LEFT JOIN f.transacoes t ";
+        String sql = " SELECT DISTINCT f FROM Fatura f LEFT JOIN f.transacoes t ON t.fatura = f ";
+        String dataInicioDB = dateToStrDatabase(dataPeriodoInicio);
+        String dataFimDB = dateToStrDatabase(dataPeriodoFim);
 
-        if (dataPeriodoInicio != null && !dataPeriodoInicio.equals("")) {
-            sql += " WHERE t.dataVencimento >= DATE(" + dataPeriodoInicio + ") ";
-            if (dataPeriodoFim != null && !dataPeriodoFim.equals("")) {
-                sql += " AND t.dataVencimento <= DATE(" + dataPeriodoFim + ") ";
+        sql += " WHERE f.faturado IS FALSE ";
+
+        if (dataInicioDB != null && !dataInicioDB.equals("")) {
+            sql += " AND ( t.dataVencimento >= '" + dataInicioDB + "' ";
+            if (dataFimDB != null && !dataFimDB.equals("")) {
+                sql += " AND t.dataVencimento <= '" + dataFimDB + "' ) ";
+            } else {
+                sql += " ) ";
             }
-        } else if (dataPeriodoFim != null && !dataPeriodoFim.equals("")) {
-            sql += " WHERE t.dataVencimento <= DATE(" + dataPeriodoFim + ") ";
+        } else if (dataFimDB != null && !dataFimDB.equals("")) {
+            sql += " AND t.dataVencimento <= '" + dataFimDB + "' ";
         }
 
         return manager.createQuery(sql, Fatura.class).getResultList();
+    }
+
+    private String dateToStrDatabase(Date date){
+        return date != null ? dbDateFormat.format(date) : null;
     }
 }
