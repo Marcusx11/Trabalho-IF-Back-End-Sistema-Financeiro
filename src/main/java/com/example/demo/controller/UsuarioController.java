@@ -14,12 +14,6 @@ public class UsuarioController {
     @Autowired
     private UsuarioService service;
 
-    @GetMapping("/login")
-    @ResponseStatus(HttpStatus.OK)
-    public UsuarioDTO login(UsuarioDTO dto) {
-        return service.autenticar(dto);
-    }
-
     @PostMapping(value = "/salvar", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.CREATED)
     public String salvar(@RequestBody UsuarioDTO dto) {

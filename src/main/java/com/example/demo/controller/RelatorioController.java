@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
 
-@RequestMapping("/relatorio")
+@RequestMapping("/sistema/relatorio")
 @RestController
 @RequiredArgsConstructor
 public class RelatorioController {

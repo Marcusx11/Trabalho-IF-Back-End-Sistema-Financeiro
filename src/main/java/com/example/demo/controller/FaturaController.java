@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@RequestMapping("/faturas")
+@RequestMapping("/sistema/faturas")
 @RestController
 public class FaturaController {
 

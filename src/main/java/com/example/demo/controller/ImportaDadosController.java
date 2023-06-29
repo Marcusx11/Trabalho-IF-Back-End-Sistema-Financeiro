@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@RequestMapping("/importa-dados")
+@RequestMapping("/sistema/importa-dados")
 @RestController
 @RequiredArgsConstructor
 public class ImportaDadosController {
