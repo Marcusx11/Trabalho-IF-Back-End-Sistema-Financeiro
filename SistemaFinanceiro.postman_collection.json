@@ -1,9 +1,9 @@
 {
 	"info": {
-		"_postman_id": "10a11945-9f27-473a-a651-dcfd3892738e",
+		"_postman_id": "07286121-88c4-4cbb-bb36-1cd71cc5236c",
 		"name": "SistemaFinanceiro",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "15653832"
+		"_exporter_id": "12046360"
 	},
 	"item": [
 		{
@@ -12,6 +12,21 @@
 				{
 					"name": "atualizar",
 					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "marcus",
+									"type": "string"
+								}
+							]
+						},
 						"method": "PUT",
 						"header": [],
 						"body": {
@@ -24,12 +39,13 @@
 							}
 						},
 						"url": {
-							"raw": "localhost:8080/categorias/atualizar",
+							"raw": "localhost:8080/sistema/categorias/atualizar",
 							"host": [
 								"localhost"
 							],
 							"port": "8080",
 							"path": [
+								"sistema",
 								"categorias",
 								"atualizar"
 							]
@@ -43,12 +59,13 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "localhost:8080/categorias/deletar/2",
+							"raw": "localhost:8080/sistema/categorias/deletar/2",
 							"host": [
 								"localhost"
 							],
 							"port": "8080",
 							"path": [
+								"sistema",
 								"categorias",
 								"deletar",
 								"2"
@@ -72,12 +89,13 @@
 							}
 						},
 						"url": {
-							"raw": "localhost:8080/categorias/salvar",
+							"raw": "localhost:8080/sistema/categorias/salvar",
 							"host": [
 								"localhost"
 							],
 							"port": "8080",
 							"path": [
+								"sistema",
 								"categorias",
 								"salvar"
 							]
@@ -91,12 +109,13 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "localhost:8080/categorias/listar",
+							"raw": "localhost:8080/sistema/categorias/listar",
 							"host": [
 								"localhost"
 							],
 							"port": "8080",
 							"path": [
+								"sistema",
 								"categorias",
 								"listar"
 							]
@@ -110,12 +129,13 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "localhost:8080/categorias/buscar-por-id/1",
+							"raw": "localhost:8080/sistema/categorias/buscar-por-id/1",
 							"host": [
 								"localhost"
 							],
 							"port": "8080",
 							"path": [
+								"sistema",
 								"categorias",
 								"buscar-por-id",
 								"1"
@@ -144,12 +164,13 @@
 							}
 						},
 						"url": {
-							"raw": "localhost:8080/faturas/atualizar",
+							"raw": "localhost:8080/sistema/faturas/atualizar",
 							"host": [
 								"localhost"
 							],
 							"port": "8080",
 							"path": [
+								"sistema",
 								"faturas",
 								"atualizar"
 							]
@@ -163,12 +184,13 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "localhost:8080/faturas/deletar/2",
+							"raw": "localhost:8080/sistema/faturas/deletar/2",
 							"host": [
 								"localhost"
 							],
 							"port": "8080",
 							"path": [
+								"sistema",
 								"faturas",
 								"deletar",
 								"2"
@@ -192,12 +214,13 @@
 							}
 						},
 						"url": {
-							"raw": "localhost:8080/faturas/salvar",
+							"raw": "localhost:8080/sistema/faturas/salvar",
 							"host": [
 								"localhost"
 							],
 							"port": "8080",
 							"path": [
+								"sistema",
 								"faturas",
 								"salvar"
 							]
@@ -211,12 +234,13 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "localhost:8080/faturas/listar",
+							"raw": "localhost:8080/sistema/faturas/listar",
 							"host": [
 								"localhost"
 							],
 							"port": "8080",
 							"path": [
+								"sistema",
 								"faturas",
 								"listar"
 							]
@@ -230,15 +254,123 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "localhost:8080/faturas/buscar-por-id/1",
+							"raw": "localhost:8080/sistema/faturas/buscar-por-id/1",
 							"host": [
 								"localhost"
 							],
 							"port": "8080",
 							"path": [
+								"sistema",
 								"faturas",
 								"buscar-por-id",
 								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "pagar",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/sistema/faturas/pagar-parcela/1",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"sistema",
+								"faturas",
+								"pagar-parcela",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Filtrar Faturas Pendentes",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/sistema/faturas/filtrar?filtro=FILTRO_PENDENTE",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"sistema",
+								"faturas",
+								"filtrar"
+							],
+							"query": [
+								{
+									"key": "filtro",
+									"value": "FILTRO_PENDENTE"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Filtrar Faturas Data Pagamento Pendentes",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/sistema/faturas/filtrar?filtro=FILTRO_DATAS_PAGAMENTOS_PENDENTES&dataPeriodoFim=2023-07-30&dataPeriodoInicio=2023-05-01",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"sistema",
+								"faturas",
+								"filtrar"
+							],
+							"query": [
+								{
+									"key": "filtro",
+									"value": "FILTRO_DATAS_PAGAMENTOS_PENDENTES"
+								},
+								{
+									"key": "dataPeriodoFim",
+									"value": "2023-07-30"
+								},
+								{
+									"key": "dataPeriodoInicio",
+									"value": "2023-05-01"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Filtrar Faturas Pagamentos Efetudaos",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/sistema/faturas/filtrar?filtro=FILTRO_PAGAMENTOS_EFETUADOS",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"sistema",
+								"faturas",
+								"filtrar"
+							],
+							"query": [
+								{
+									"key": "filtro",
+									"value": "FILTRO_PAGAMENTOS_EFETUADOS"
+								}
 							]
 						}
 					},
@@ -264,12 +396,13 @@
 							}
 						},
 						"url": {
-							"raw": "localhost:8080/metacategorias/atualizar",
+							"raw": "localhost:8080/sistema/metacategorias/atualizar",
 							"host": [
 								"localhost"
 							],
 							"port": "8080",
 							"path": [
+								"sistema",
 								"metacategorias",
 								"atualizar"
 							]
@@ -283,12 +416,13 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "localhost:8080/metacategorias/deletar/2",
+							"raw": "localhost:8080/sistema/metacategorias/deletar/2",
 							"host": [
 								"localhost"
 							],
 							"port": "8080",
 							"path": [
+								"sistema",
 								"metacategorias",
 								"deletar",
 								"2"
@@ -312,12 +446,13 @@
 							}
 						},
 						"url": {
-							"raw": "localhost:8080/metacategorias/salvar",
+							"raw": "localhost:8080/sistema/metacategorias/salvar",
 							"host": [
 								"localhost"
 							],
 							"port": "8080",
 							"path": [
+								"sistema",
 								"metacategorias",
 								"salvar"
 							]
@@ -331,12 +466,13 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "localhost:8080/metacategorias/listar",
+							"raw": "localhost:8080/sistema/metacategorias/listar",
 							"host": [
 								"localhost"
 							],
 							"port": "8080",
 							"path": [
+								"sistema",
 								"metacategorias",
 								"listar"
 							]
@@ -350,12 +486,13 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "localhost:8080/metacategorias/buscar-por-id/1",
+							"raw": "localhost:8080/sistema/metacategorias/buscar-por-id/1",
 							"host": [
 								"localhost"
 							],
 							"port": "8080",
 							"path": [
+								"sistema",
 								"metacategorias",
 								"buscar-por-id",
 								"1"
@@ -370,12 +507,13 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "localhost:8080/metacategorias/filtrar-orcamento",
+							"raw": "localhost:8080/sistema/metacategorias/filtrar-orcamento",
 							"host": [
 								"localhost"
 							],
 							"port": "8080",
 							"path": [
+								"sistema",
 								"metacategorias",
 								"filtrar-orcamento"
 							]
@@ -389,12 +527,13 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "localhost:8080/metacategorias/filtrar-orcamento-por-categoria/1",
+							"raw": "localhost:8080/sistema/metacategorias/filtrar-orcamento-por-categoria/1",
 							"host": [
 								"localhost"
 							],
 							"port": "8080",
 							"path": [
+								"sistema",
 								"metacategorias",
 								"filtrar-orcamento-por-categoria",
 								"1"
@@ -414,12 +553,13 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "localhost:8080/relatorio/geral",
+							"raw": "localhost:8080/sistema/relatorio/geral",
 							"host": [
 								"localhost"
 							],
 							"port": "8080",
 							"path": [
+								"sistema",
 								"relatorio",
 								"geral"
 							]
@@ -433,12 +573,13 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "localhost:8080/relatorio/contas-pendentes?inicial=3&final=5",
+							"raw": "localhost:8080/sistema/relatorio/contas-pendentes?inicial=3&final=5",
 							"host": [
 								"localhost"
 							],
 							"port": "8080",
 							"path": [
+								"sistema",
 								"relatorio",
 								"contas-pendentes"
 							],
@@ -462,12 +603,13 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "localhost:8080/relatorio/previsao-gastos/3",
+							"raw": "localhost:8080/sistema/relatorio/previsao-gastos/3",
 							"host": [
 								"localhost"
 							],
 							"port": "8080",
 							"path": [
+								"sistema",
 								"relatorio",
 								"previsao-gastos",
 								"3"
@@ -496,14 +638,48 @@
 							}
 						},
 						"url": {
-							"raw": "localhost:8080/importa-dados/extrato-xml",
+							"raw": "localhost:8080/sistema/importa-dados/extrato-xml",
 							"host": [
 								"localhost"
 							],
 							"port": "8080",
 							"path": [
+								"sistema",
 								"importa-dados",
 								"extrato-xml"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Usuarios",
+			"item": [
+				{
+					"name": "Salvar",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\t\"login\": \"rafael\",\r\n\t\"senha\": \"123\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/usuarios/salvar",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"usuarios",
+								"salvar"
 							]
 						}
 					},

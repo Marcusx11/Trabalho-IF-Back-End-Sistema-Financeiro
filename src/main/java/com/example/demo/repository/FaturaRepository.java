@@ -16,9 +16,4 @@ public interface FaturaRepository extends JpaRepository<Fatura, Long> {
 
     @Query("SELECT DISTINCT f FROM Fatura f LEFT JOIN f.transacoes t WHERE f.faturado IS TRUE AND t.dataPagamento IS NOT NULL ")
     List<Fatura> encontrarPagamentosEfetuados();
-
-    @Query("  SELECT f FROM Fatura f LEFT JOIN f.transacoes t " +
-            " WHERE t.dataVencimento BETWEEN :dataInicio AND :dataFim ")
-    List<Fatura> encontrarFaturasPendentes(@Param("dataInicio")Date dataInicio,
-                                           @Param("dataFim")Date dataFim);
 }

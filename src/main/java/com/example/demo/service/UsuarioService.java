@@ -69,4 +69,6 @@ public class UsuarioService extends BaseService implements UserDetailsService {
 
         return new UsuarioDetails(usuario);
     }
+
+
 }
