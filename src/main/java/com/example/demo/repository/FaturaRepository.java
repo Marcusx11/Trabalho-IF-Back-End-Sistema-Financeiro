@@ -1,5 +1,6 @@
 package com.example.demo.repository;
 
+import com.example.demo.entity.Categoria;
 import com.example.demo.entity.Fatura;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -13,6 +14,8 @@ import java.util.List;
 public interface FaturaRepository extends JpaRepository<Fatura, Long> {
 
     List<Fatura> findAllByFaturadoEquals(Boolean faturado);
+
+    List<Fatura> findAllByCategoria(Categoria categoria);
 
     @Query("SELECT DISTINCT f FROM Fatura f LEFT JOIN f.transacoes t WHERE f.faturado IS TRUE AND t.dataPagamento IS NOT NULL ")
     List<Fatura> encontrarPagamentosEfetuados();

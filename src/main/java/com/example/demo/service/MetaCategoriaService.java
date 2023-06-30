@@ -32,25 +32,17 @@ public class MetaCategoriaService extends BaseService {
     @Autowired
     private final CategoriaRepository categoriaRepository;
 
-    public void verificaLimite(List<FaturaDTO> faturas, FaturaDTO dto, Categoria cat) {
-        Categoria categoria = new Categoria();
+    public void verificaLimite(List<Fatura> faturasFiltradas, FaturaDTO dto, Categoria categoria) {
         float somaFaturasDeMetaCategoria = 0.0F;
-        for (FaturaDTO faturaDTO : faturas) {
-            categoria.setId(faturaDTO.getCategoria().getId());
-            categoria.setNome(faturaDTO.getCategoria().getNome());
-            if (categoria.equals(cat)) {
-                somaFaturasDeMetaCategoria += faturaDTO.getValorTotal()/faturaDTO.getParcelas();
-            }
+        for (Fatura f : faturasFiltradas) {
+            somaFaturasDeMetaCategoria += f.getValorTotal() / f.getParcelas();
         }
-        for (MetaCategoriaDTO metaCategoriaDTO: this.listar()) {
-            categoria.setId(metaCategoriaDTO.getCategoria().getId());
-            categoria.setNome(metaCategoriaDTO.getCategoria().getNome());
-            if (categoria.equals(cat)) {
-                if ((somaFaturasDeMetaCategoria + (dto.getValorTotal()/ dto.getParcelas())) > metaCategoriaDTO.getLimite()) {
-                    metaCategoriaDTO.setControle(false); // false indica que o limite foi excedido com a fatura recem inserida
-                    this.atualizar(metaCategoriaDTO);
-                }
-            }
+
+        MetaCategoria metaCategoria = metaCategoriaRepository.findByCategoria(categoria);
+        if (( somaFaturasDeMetaCategoria + (dto.getValorTotal() / dto.getParcelas()) ) > metaCategoria.getLimite()) {
+            // false indica que o limite foi excedido com a fatura recem inserida
+            metaCategoria.setControle(Boolean.FALSE);
+            metaCategoriaRepository.save(metaCategoria);
         }
     }
 
