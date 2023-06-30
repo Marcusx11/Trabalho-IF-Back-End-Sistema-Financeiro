@@ -2,8 +2,10 @@ package com.example.demo.service;
 
 import com.example.demo.component.Messages;
 import com.example.demo.dto.CategoriaDTO;
+import com.example.demo.dto.FaturaDTO;
 import com.example.demo.dto.MetaCategoriaDTO;
 import com.example.demo.entity.Categoria;
+import com.example.demo.entity.Fatura;
 import com.example.demo.entity.MetaCategoria;
 import com.example.demo.repository.CategoriaRepository;
 import com.example.demo.repository.MetaCategoriaRepository;
@@ -27,7 +29,30 @@ public class MetaCategoriaService extends BaseService {
     private final MetaCategoriaRepository metaCategoriaRepository;
     private static final String METACATEGORIA = "MetaCategoria";
 
+    @Autowired
     private final CategoriaRepository categoriaRepository;
+
+    public void verificaLimite(List<FaturaDTO> faturas, FaturaDTO dto, Categoria cat) {
+        Categoria categoria = new Categoria();
+        float somaFaturasDeMetaCategoria = 0.0F;
+        for (FaturaDTO faturaDTO : faturas) {
+            categoria.setId(faturaDTO.getCategoria().getId());
+            categoria.setNome(faturaDTO.getCategoria().getNome());
+            if (categoria.equals(cat)) {
+                somaFaturasDeMetaCategoria += faturaDTO.getValorTotal()/faturaDTO.getParcelas();
+            }
+        }
+        for (MetaCategoriaDTO metaCategoriaDTO: this.listar()) {
+            categoria.setId(metaCategoriaDTO.getCategoria().getId());
+            categoria.setNome(metaCategoriaDTO.getCategoria().getNome());
+            if (categoria.equals(cat)) {
+                if ((somaFaturasDeMetaCategoria + (dto.getValorTotal()/ dto.getParcelas())) > metaCategoriaDTO.getLimite()) {
+                    metaCategoriaDTO.setControle(false); // false indica que o limite foi excedido com a fatura recem inserida
+                    this.atualizar(metaCategoriaDTO);
+                }
+            }
+        }
+    }
 
     @Transactional(readOnly = true)
     public List<MetaCategoriaDTO> listar() {

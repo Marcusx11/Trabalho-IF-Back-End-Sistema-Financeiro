@@ -40,6 +40,7 @@ public class FaturaService extends BaseService {
 
     private static final String FATURA = "Fatura";
 
+
     @Transactional(readOnly = true)
     public List<FaturaDTO> listar() {
         List<Fatura> entidades = repository.findAll();
@@ -74,25 +75,8 @@ public class FaturaService extends BaseService {
                 categoriaService.buscarValidar(dto.getCategoria().getId()),
                 transacaoService.passarDadosTransacoes(fatura, dto));
 
-        Categoria categoria = new Categoria();
-        float somaFaturasDeMetaCategoria = 0.0F;
-        for (FaturaDTO faturaDTO : this.listar()) {
-            categoria.setId(faturaDTO.getCategoria().getId());
-            categoria.setNome(faturaDTO.getCategoria().getNome());
-            if (categoria.equals(fatura.getCategoria())) {
-                somaFaturasDeMetaCategoria += faturaDTO.getValorTotal()/faturaDTO.getParcelas();
-            }
-        }
-        for (MetaCategoriaDTO metaCategoriaDTO: metaCategoriaService.listar()) {
-            categoria.setId(metaCategoriaDTO.getCategoria().getId());
-            categoria.setNome(metaCategoriaDTO.getCategoria().getNome());
-            if (categoria.equals(fatura.getCategoria())) {
-                if ((somaFaturasDeMetaCategoria + (dto.getValorTotal()/dto.getParcelas())) > metaCategoriaDTO.getLimite()) {
-                    metaCategoriaDTO.setControle(false); // false indica que o limite foi excedido com a fatura recem inserida
-                    metaCategoriaService.atualizar(metaCategoriaDTO);
-                }
-            }
-        }
+        List<FaturaDTO> faturas = this.listar();
+        metaCategoriaService.verificaLimite(faturas, dto, categoriaService.buscarValidar(dto.getCategoria().getId()));
 
         repository.save(fatura);
 
@@ -101,11 +85,12 @@ public class FaturaService extends BaseService {
 
     @Transactional(rollbackFor = Throwable.class, propagation = Propagation.REQUIRES_NEW)
     public String atualizar(FaturaDTO dto) {
+        List<FaturaDTO> faturas = this.listar();
+        metaCategoriaService.verificaLimite(faturas, dto, categoriaService.buscarValidar(dto.getCategoria().getId()));
         Fatura fatura = buscarValidar(dto.getId());
         fatura.transformer(dto,
                 categoriaService.buscarValidar(dto.getCategoria().getId()),
                 transacaoService.passarDadosTransacoes(fatura, dto));
-
         repository.save(fatura);
 
         return messages.getAndReplace("entidade.atualizada", FATURA);
