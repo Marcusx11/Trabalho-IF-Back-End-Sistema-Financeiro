@@ -76,7 +76,6 @@ public class FaturaService extends BaseService {
         fatura.transformer(dto, categoria, transacaoService.passarDadosTransacoes(fatura, dto));
 
         metaCategoriaService.verificaLimite(repository.findAllByCategoria(categoria), dto, categoria);
-
         repository.save(fatura);
 
         return messages.getAndReplace("entidade.salva", FATURA);
@@ -86,10 +85,10 @@ public class FaturaService extends BaseService {
     public String atualizar(FaturaDTO dto) {
         Categoria categoria = categoriaService.buscarValidar(dto.getCategoria().getId());
         metaCategoriaService.verificaLimite(repository.findAllByCategoria(categoria), dto, categoria);
+
         Fatura fatura = buscarValidar(dto.getId());
-        fatura.transformer(dto,
-                categoriaService.buscarValidar(dto.getCategoria().getId()),
-                transacaoService.passarDadosTransacoes(fatura, dto));
+        fatura.transformer(dto, categoria, transacaoService.passarDadosTransacoes(fatura, dto));
+
         repository.save(fatura);
 
         return messages.getAndReplace("entidade.atualizada", FATURA);
