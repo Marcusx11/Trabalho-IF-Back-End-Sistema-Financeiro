@@ -60,10 +60,10 @@ cd "Trabalho-IF-Back-End-Sistema-Financeiro"
 
 Build and run:
 ```bash
-./mvnw clean install
+mvnw clean install
 ```
 ```bash
-./mvnw spring-boot:run   # if Spring Boot is used
+mvnw spring-boot:run   # if Spring Boot is used
 ```
 
 The application will be available on:
