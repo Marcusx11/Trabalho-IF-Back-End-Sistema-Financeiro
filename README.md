@@ -62,6 +62,7 @@ Build and run:
 ```bash
 mvnw clean install
 ```
+**Remember to start your MySQL Server.**
 ```bash
 mvnw spring-boot:run   # if Spring Boot is used
 ```
