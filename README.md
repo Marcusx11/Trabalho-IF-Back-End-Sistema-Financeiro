@@ -55,7 +55,7 @@ Clone the repository:
 git clone https://github.com/Marcusx11/Trabalho-IF-Back-End-Sistema-Financeiro.git
 ```
 ```bash
-cd Trabalho-IF-Back-End-Sistema-Financeiro
+cd "Trabalho-IF-Back-End-Sistema-Financeiro"
 ```
 
 Build and run:
