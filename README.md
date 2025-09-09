@@ -55,15 +55,16 @@ Clone the repository:
 git clone https://github.com/Marcusx11/Trabalho-IF-Back-End-Sistema-Financeiro.git
 ```
 ```bash
-cd Trabalho-IF-Back-End-Sistema-Financeiro
+cd "Trabalho-IF-Back-End-Sistema-Financeiro"
 ```
 
 Build and run:
 ```bash
-./mvnw clean install
+mvnw clean install
 ```
+**Remember to start your MySQL Server.**
 ```bash
-./mvnw spring-boot:run   # if Spring Boot is used
+mvnw spring-boot:run   # if Spring Boot is used
 ```
 
 The application will be available on:
