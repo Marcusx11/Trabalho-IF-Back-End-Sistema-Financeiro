@@ -62,10 +62,11 @@ Build and run:
 ```bash
 mvnw clean install
 ```
-**Remember to start your MySQL Server.**
+**Remember to start your MySQL Server before running the command above.**
 ```bash
-mvnw spring-boot:run   # if Spring Boot is used
+mvnw spring-boot:run 
 ```
+You can also open this project in any IDE of your choice for easier setups. I recommend you to use IntelliJ, since it was the IDE used for building this app.
 
 The application will be available on:
 ```bash
@@ -78,15 +79,36 @@ You can import the Postman collection for quick testing:
 
 File: SistemaFinanceiro.postman_collection.json
 
-Example request (transaction creation):
+You need to save an user to the database and login to it first to send requests.
+Exemaple request for saving a new user
 ```bash
-POST /api/transactions
+POST /usuarios/salvar
 Content-Type: application/json
 
 {
-  "type": "EXPENSE",
-  "amount": 120.50,
-  "description": "Utility bill"
+	"login": "rafael",
+	"senha": "123"
+}
+```
+
+Example response:
+```bash
+"Usuário salvo(a) com sucesso!"
+```
+Now, a request example for login to the system:
+
+Example request (transaction creation):
+```bash
+POST /sistema/faturas/salvar
+Content-Type: application/json
+
+{
+    "faturado": false,
+    "parcelas": 2,
+    "valorTotal": 200.0,
+    "categoria": {
+        "id": 3
+    }
 }
 ```
 
