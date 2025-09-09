@@ -71,3 +71,37 @@ The application will be available on:
 http://localhost:8080
 ```
 
+## 📬 API Usage
+
+You can import the Postman collection for quick testing:
+
+File: SistemaFinanceiro.postman_collection.json
+
+Example request (transaction creation):
+```bash
+POST /api/transactions
+Content-Type: application/json
+
+{
+  "type": "EXPENSE",
+  "amount": 120.50,
+  "description": "Utility bill"
+}
+```
+
+Example response:
+```bash
+{
+  "id": 1,
+  "type": "EXPENSE",
+  "amount": 120.50,
+  "description": "Utility bill",
+  "date": "2025-09-09T20:00:00"
+}
+```
+
+## 📖 Documentation
+
+- 📄 [Project Requirements (PDF)](./Requistios%20Trabalho%20-%20Back-End.pdf)  
+- 🧪 [Postman Collection](./SistemaFinanceiro.postman_collection.json)  
+- 🗂️ [Example Bank Statement (extrato.xml)](./extrato.xml)  
