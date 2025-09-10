@@ -2,7 +2,6 @@
 
 [![Java](https://img.shields.io/badge/Java-11%2B-blue?logo=java)](https://www.oracle.com/java/)
 [![Maven](https://img.shields.io/badge/Maven-3.6%2B-C71A36?logo=apache-maven)](https://maven.apache.org/)
-[![License](https://img.shields.io/badge/license-MIT-green)](LICENSE)
 
 Backend implementation of a **Financial Management System** developed as part of an academic project at **IFMG – Campus Formiga**.  
 It provides core financial operations such as user management, transaction recording, and account statement handling, exposing these features through RESTful APIs.
