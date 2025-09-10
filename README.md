@@ -99,28 +99,23 @@ Now, a request example for login to the system:
 
 Example request (transaction creation):
 ```bash
-POST /sistema/faturas/salvar
+POST /sistema/metacategorias/salvar
 Content-Type: application/json
+Authorization: Basic <Converted Base64 code with the following structure: username:password. Postman can do this automatically in Authorization tag.>
 
 {
-    "faturado": false,
-    "parcelas": 2,
-    "valorTotal": 200.0,
+    "nome": "Meta da Categoria 2",
+    "limite": 400.0,
+    "controle": true,
     "categoria": {
-        "id": 3
+        "id": "2"
     }
 }
 ```
 
 Example response:
 ```bash
-{
-  "id": 1,
-  "type": "EXPENSE",
-  "amount": 120.50,
-  "description": "Utility bill",
-  "date": "2025-09-09T20:00:00"
-}
+"MetaCategoria salvo(a) com sucesso!"
 ```
 
 ## 📖 Documentation
