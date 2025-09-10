@@ -101,7 +101,7 @@ Example request (transaction creation):
 ```bash
 POST /sistema/metacategorias/salvar
 Content-Type: application/json
-Authorization: Basic <Converted Base64 code with the following structure: username:password. Postman can do this automatically in Authorization tag.>
+Authorization: Basic "<Converted Base64 code with the following structure: username:password. Postman can do this automatically in Authorization tag.>"
 
 {
     "nome": "Meta da Categoria 2",
