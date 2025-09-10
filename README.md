@@ -79,8 +79,8 @@ You can import the Postman collection for quick testing:
 
 File: SistemaFinanceiro.postman_collection.json
 
-You need to save an user to the database and login to it first to send requests.
-Exemaple request for saving a new user
+You need to save an user to the database and use the Basic Authorization header on Postman to send requests to "/sistema" routes.
+Exemaple request for saving a new user:
 ```bash
 POST /usuarios/salvar
 Content-Type: application/json
@@ -95,13 +95,11 @@ Example response:
 ```bash
 "Usuário salvo(a) com sucesso!"
 ```
-Now, a request example for login to the system:
-
-Example request (transaction creation):
+Now, a request example for creating financial goals:
 ```bash
 POST /sistema/metacategorias/salvar
 Content-Type: application/json
-Authorization: Basic "<Converted Base64 code with the following structure: username:password. Postman can do this automatically in Authorization tag.>"
+Authorization: Basic "<Converted Base64 code with the following structure: username:password.>"
 
 {
     "nome": "Meta da Categoria 2",
